@@ -4,7 +4,6 @@ provider "aws" {
   profile                 = var.profile
   max_retries             = 1
 }
-
 locals {
   bucket_name      = "${lookup(var.s3_glow_front_bucket_name, var.env)}"
   bucket_origin_id = "${lookup(var.s3_glow_front_bucket_origin_id, var.env)}"
