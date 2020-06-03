@@ -16,16 +16,16 @@ variable "env" {
 
 variable "s3_glow_front_bucket_name" {
   default = {
-    dev  = "dev-glow-front-bucket"
-    stg  = "stg-glow-front-bucket"
-    prod = "prod-glow-front-bucket"
+    dev        = "dev-glow-front-bucket"
+    staging    = "stg-glow-front-bucket"
+    production = "prod-glow-front-bucket"
   }
 }
 
 variable "s3_glow_front_bucket_origin_id" {
   default = {
-    dev  = "dev-glow-front-bucket-originid"
-    stg  = "stg-glow-front-bucket-originid"
-    prod = "prod-glow-front-bucket-originid"
+    dev        = "dev-glow-front-bucket-originid"
+    staging    = "stg-glow-front-bucket-originid"
+    production = "prod-glow-front-bucket-originid"
   }
 }
