@@ -15,10 +15,6 @@ resource "aws_s3_bucket" "s3_bucket" {
   bucket = local.bucket_name
   acl    = "public-read"
 
-  versioning {
-    enabled = true
-  }
-
   policy = <<POLICY
 {
   "Version":"2012-10-17",
@@ -87,8 +83,39 @@ resource "aws_cloudfront_distribution" "frontend_cloudfront_distribution_test" {
 
   viewer_certificate {
     cloudfront_default_certificate = true
-    # acm_certificate_arn = "${data.aws_acm_certificate.ssl_cert.arn}"
-    # ssl_support_method  = "sni-only"
   }
+}
+
+resource "aws_iam_user" "circleci_react" {
+  name = "circleci_react"
+}
+
+data "aws_iam_policy_document" "policy_data" {
+  statement {
+    actions = [
+      "s3:ListBucket",
+      "s3:GetBucketLocation"
+    ]
+    resources = [aws_s3_bucket.s3_bucket.arn]
+  }
+
+  statement {
+    actions = [
+      "s3:PutObject",
+      "s3:PutObjectAcl",
+      "s3:DeleteObject"
+    ]
+    resources = ["${aws_s3_bucket.s3_bucket.arn}/*"]
+  }
+}
+
+resource "aws_iam_policy" "policy" {
+  name   = "circleci-for-react"
+  policy = data.aws_iam_policy_document.policy_data.json
+}
+
+resource "aws_iam_user_policy_attachment" "attach" {
+  user       = aws_iam_user.circleci_react.name
+  policy_arn = aws_iam_policy.policy.arn
 }
 

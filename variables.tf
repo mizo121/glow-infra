@@ -16,41 +16,16 @@ variable "env" {
 
 variable "s3_glow_front_bucket_name" {
   default = {
-    dev  = "testdevglowfrontbucketname"
-    stg  = "teststgglowfrontbucketname"
-    prod = "testprodglowfrontbucketname"
+    dev  = "dev-glow-front-bucket"
+    stg  = "stg-glow-front-bucket"
+    prod = "prod-glow-front-bucket"
   }
 }
 
 variable "s3_glow_front_bucket_origin_id" {
   default = {
-    dev  = "testdevglowfrontbucketoriginid"
-    stg  = "teststgglowfrontbucketoriginid"
-    prod = "testprodglowfrontbucketoriginid"
+    dev  = "dev-glow-front-bucket-originid"
+    stg  = "stg-glow-front-bucket-originid"
+    prod = "prod-glow-front-bucket-originid"
   }
 }
-
-
-# variable "s3_glow_front_bucket_name_dev" {
-#   default = "testdevglowfrontbucketname"
-# }
-
-# variable "s3_glow_front_bucket_name_stg" {
-#   default = "teststgglowfrontbucketname"
-# }
-
-# variable "s3_glow_front_bucket_name_prod" {
-#   default = "testprodglowfrontbucketname"
-# }
-
-# variable "s3_glow_front_bucket_origin_id_dev" {
-#   default = "testdevglowfrontbucketoriginid"
-# }
-
-# variable "s3_glow_front_bucket_origin_id_stg" {
-#   default = "teststgglowfrontbucketoriginid"
-# }
-
-# variable "s3_glow_front_bucket_origin_id_prod" {
-#   default = "testprodglowfrontbucketoriginid"
-# }
