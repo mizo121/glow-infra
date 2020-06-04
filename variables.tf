@@ -1,3 +1,7 @@
+variable "env" {
+  default = "dev"
+
+
 variable "s3_glow_front_bucket_name" {
   default = {
     dev        = "test-dev-glow-front-bucket"
