@@ -14,8 +14,9 @@ provider "aws" {
   max_retries = 1
 }
 locals {
-  bucket_name      = "${lookup(var.s3_glow_front_bucket_name, terraform.workspace)}"
-  bucket_origin_id = "${lookup(var.s3_glow_front_bucket_origin_id, terraform.workspace)}"
+  bucket_name      = "${lookup(var.s3_glow_front_bucket_name, var.env)}"
+  bucket_origin_id = "${lookup(var.s3_glow_front_bucket_origin_id, var.env)}"
+  test             = "test"
 }
 
 ## s3 bucket resource for frontend deployment
