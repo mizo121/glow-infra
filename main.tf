@@ -1,13 +1,24 @@
+terraform {
+  backend "remote" {
+    hostname     = "app.terraform.io"
+    organization = "mizo"
+
+    workspaces {
+      prefix = "my-app-"
+    }
+  }
+}
+
 provider "aws" {
-  region                  = var.region
-  shared_credentials_file = var.shared_credentials_file
-  profile                 = var.profile
-  max_retries             = 1
+  region      = "us-west-2"
+  max_retries = 1
 }
 locals {
-  bucket_name      = "${lookup(var.s3_glow_front_bucket_name, var.env)}"
-  bucket_origin_id = "${lookup(var.s3_glow_front_bucket_origin_id, var.env)}"
+  bucket_name      = var.s3_glow_front_bucket_name      #"${lookup(var.s3_glow_front_bucket_name, terraform.workspace)}"
+  bucket_origin_id = var.s3_glow_front_bucket_origin_id #"${lookup(var.s3_glow_front_bucket_origin_id, terraform.workspace)}"
 }
+
+## s3 bucket resource for frontend deployment
 
 resource "aws_s3_bucket" "s3_bucket" {
 
@@ -32,6 +43,7 @@ POLICY
   }
 }
 
+## cloudfront distribution resource
 
 resource "aws_cloudfront_distribution" "frontend_cloudfront_distribution_test" {
 
@@ -84,6 +96,8 @@ resource "aws_cloudfront_distribution" "frontend_cloudfront_distribution_test" {
     cloudfront_default_certificate = true
   }
 }
+
+## IAM user for circle ci react deployment
 
 resource "aws_iam_user" "circleci_react" {
   name = "circleci_react"
